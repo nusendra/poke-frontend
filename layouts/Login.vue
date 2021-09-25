@@ -1,16 +1,19 @@
 <template>
-  <div>
+  <div class="super-container">
     <div :class="'container ' + panelActive" id="container">
       <div class="form-container sign-up-container">
         <div class="form">
-          <h1>Create Account</h1>
+          <h1>Create Account and Sign In</h1>
           <span>or use your email for registration</span>
           <p>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input v-model="emailRegister" type="email" placeholder="Email" />
+            <input
+              v-model="passwordRegister"
+              type="password"
+              placeholder="Password"
+            />
           </p>
-          <button>Sign Up</button>
+          <button @click="register">Sign Up</button>
         </div>
       </div>
       <div class="form-container sign-in-container">
@@ -54,6 +57,8 @@ export default {
     return {
       email: '',
       password: '',
+      emailRegister: '',
+      passwordRegister: '',
       panelActive: 'left-panel-active',
     };
   },
@@ -73,9 +78,11 @@ export default {
     async register() {
       try {
         await this.$fire.auth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
+          this.emailRegister,
+          this.passwordRegister
         );
+        this.panelActive = 'left-panel-active';
+        alert('Registered, please login using your credential');
       } catch (e) {
         alert(e.message);
       }
@@ -91,14 +98,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
   box-sizing: border-box;
 }
 
-body {
+.super-container {
   background: #f6f5f7;
   display: flex;
   justify-content: center;
