@@ -60,12 +60,24 @@ export default {
   methods: {
     async onSubmit() {
       try {
+        await this.$fire.auth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        const result = await this.$fire.auth.currentUser.getIdToken();
+        localStorage.setItem('token', result);
+      } catch (e) {
+        alert(e.message);
+      }
+    },
+    async register() {
+      try {
         await this.$fire.auth.createUserWithEmailAndPassword(
           this.email,
           this.password
         );
       } catch (e) {
-        console.log(e);
+        alert(e.message);
       }
     },
     toggleSignMode(type) {
