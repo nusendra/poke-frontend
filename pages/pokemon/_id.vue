@@ -62,16 +62,16 @@
 
       <div class="my-2 text-subtitle-1">Stats</div>
       <v-progress-circular
-        v-for="(item, index) in pokemonData.stats"
+        v-for="(item, index) in statItems"
         :key="'stat_' + index"
         :rotate="90"
         :size="100"
         :width="10"
-        :value="item.base_stat"
+        :value="item.baseStat"
         color="teal"
         class="mr-2"
       >
-        {{ item.stat.name }}
+        {{ item.name }}
       </v-progress-circular>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
@@ -94,6 +94,24 @@ export default {
       stats: [],
     },
   }),
+  computed: {
+    statItems() {
+      return this.pokemonData.stats.map((item) => {
+        let name = '';
+        if (item.stat.name === 'hp') name = 'HP';
+        if (item.stat.name === 'attack') name = 'ATK';
+        if (item.stat.name === 'defense') name = 'DEF';
+        if (item.stat.name === 'special-attack') name = 'SPATK';
+        if (item.stat.name === 'special-defense') name = 'SPDEF';
+        if (item.stat.name === 'speed') name = 'SPD';
+
+        return {
+          baseStat: item.base_stat,
+          name,
+        };
+      });
+    },
+  },
   mounted() {
     this.fetch();
   },

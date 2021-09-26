@@ -26,7 +26,6 @@ export default {
   computed: {
     transformedItems() {
       return this.items.map((item) => {
-        console.log(item);
         let name = '';
         if (item.stat.name === 'hp') name = 'HP';
         if (item.stat.name === 'attack') name = 'ATK';
