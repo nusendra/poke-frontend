@@ -30,7 +30,7 @@ export default {
         { text: 'Name', value: 'name' },
       ],
       options: {
-        itemsPerPage: 5,
+        itemsPerPage: 10,
       },
       items: [],
       loading: true,
@@ -60,15 +60,6 @@ export default {
     changeRowCount(val) {
       this.options.itemsPerPage = val;
       this.fetch();
-    },
-    logout() {
-      this.$fire.auth.signOut();
-      this.$store.commit('setAuth', null);
-      this.$store.commit('setToken', null);
-
-      this.$router.push({
-        path: '/login',
-      });
     },
   },
 };
