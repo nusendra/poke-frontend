@@ -16,20 +16,7 @@
       </v-list-item>
 
       <v-card-actions class="d-flex justify-space-between">
-        <div>
-          <v-progress-circular
-            v-for="(item, index) in randomPokemon.data.stats"
-            :key="'stat_' + index"
-            :rotate="90"
-            :size="70"
-            :width="5"
-            :value="item.base_stat"
-            color="primary"
-            class="mr-2"
-          >
-            {{ item.stat.name }}
-          </v-progress-circular>
-        </div>
+        <Stat :items="randomPokemon.data.stats" />
         <div>
           <v-btn medium depressed color="orange" @click="getRandomPokemon">
             Get random pokemon
@@ -69,7 +56,10 @@
 </template>
 
 <script>
+import Stat from '@/components/Stat';
+
 export default {
+  components: { Stat },
   data() {
     return {
       headers: [
@@ -103,6 +93,7 @@ export default {
   methods: {
     async getRandomPokemon() {
       const { data } = await this.$axios.$get(`/pokemon/random`);
+      console.log(data);
       this.randomPokemon = data;
     },
     async getTotalPokemon() {
