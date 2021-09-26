@@ -9,10 +9,15 @@
       'items-per-page-options': [5, 10, 15, 20],
     }"
     loading-text="Loading... Please wait"
+    class="elevation-1"
     @update:page="changePage"
     @update:items-per-page="changeRowCount"
-    class="elevation-1"
   >
+    <template #[`item.actions`]="{ item }">
+      <v-btn small depressed color="primary" @click="detail(item)">
+        Detail
+      </v-btn>
+    </template>
   </v-data-table>
 </template>
 
@@ -28,6 +33,7 @@ export default {
           value: 'id',
         },
         { text: 'Name', value: 'name' },
+        { text: 'Actions', value: 'actions', sortable: false, align: 'center' },
       ],
       options: {
         itemsPerPage: 10,
@@ -60,6 +66,11 @@ export default {
     changeRowCount(val) {
       this.options.itemsPerPage = val;
       this.fetch();
+    },
+    detail(val) {
+      this.$router.push({
+        path: `/pokemon/${val.id}`,
+      });
     },
   },
 };
