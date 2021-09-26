@@ -66,7 +66,7 @@
         :key="'stat_' + index"
         :rotate="90"
         :size="100"
-        :width="15"
+        :width="10"
         :value="item.base_stat"
         color="teal"
         class="mr-2"

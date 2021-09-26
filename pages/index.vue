@@ -1,24 +1,67 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    :options="options"
-    :server-items-length="totalPokemon"
-    :loading="loading"
-    :footer-props="{
-      'items-per-page-options': [5, 10, 15, 20],
-    }"
-    loading-text="Loading... Please wait"
-    class="elevation-1"
-    @update:page="changePage"
-    @update:items-per-page="changeRowCount"
-  >
-    <template #[`item.actions`]="{ item }">
-      <v-btn small depressed color="primary" @click="detail(item)">
-        Detail
-      </v-btn>
-    </template>
-  </v-data-table>
+  <div>
+    <v-card v-if="!loading" class="mx-auto mb-10" outlined>
+      <v-list-item three-line>
+        <v-list-item-content>
+          <div class="text-overline">POKEMON INFORMATION TODAY</div>
+          <v-list-item-title class="text-h5 mb-1">
+            {{ randomPokemon.data.name.toUpperCase() }}
+          </v-list-item-title>
+        </v-list-item-content>
+
+        <v-img
+          max-width="120"
+          :src="randomPokemon.data.sprites.front_default"
+        />
+      </v-list-item>
+
+      <v-card-actions class="d-flex justify-space-between">
+        <div>
+          <v-progress-circular
+            v-for="(item, index) in randomPokemon.data.stats"
+            :key="'stat_' + index"
+            :rotate="90"
+            :size="60"
+            :width="5"
+            :value="item.base_stat"
+            color="primary"
+            class="mr-2"
+          >
+            {{ item.stat.name }}
+          </v-progress-circular>
+        </div>
+        <v-btn
+          class=""
+          small
+          depressed
+          color="primary"
+          @click="detail(randomPokemon.data)"
+        >
+          Check the Detail
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      :options="options"
+      :server-items-length="totalPokemon"
+      :loading="loading"
+      :footer-props="{
+        'items-per-page-options': [5, 10, 15, 20],
+      }"
+      loading-text="Loading... Please wait"
+      class="elevation-1"
+      @update:page="changePage"
+      @update:items-per-page="changeRowCount"
+    >
+      <template #[`item.actions`]="{ item }">
+        <v-btn small depressed color="primary" @click="detail(item)">
+          Detail
+        </v-btn>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
@@ -42,13 +85,22 @@ export default {
       loading: true,
       totalPokemon: 0,
       page: 1,
+      randomPokemon: {},
     };
   },
   async mounted() {
-    await Promise.allSettled([this.getTotalPokemon(), this.fetch()]);
+    await Promise.allSettled([
+      this.getTotalPokemon(),
+      this.fetch(),
+      this.getRandomPokemon(),
+    ]);
     this.loading = false;
   },
   methods: {
+    async getRandomPokemon() {
+      const { data } = await this.$axios.$get(`/pokemon/random`);
+      this.randomPokemon = data;
+    },
     async getTotalPokemon() {
       const { data } = await this.$axios.$get(`/pokemon/total`);
       this.totalPokemon = data;
