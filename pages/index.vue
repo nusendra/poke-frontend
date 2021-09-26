@@ -87,6 +87,7 @@ export default {
     logout() {
       this.$fire.auth.signOut();
       this.$store.commit('setAuth', null);
+      this.$store.commit('setToken', null);
 
       this.$router.push({
         path: '/login',

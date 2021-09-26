@@ -69,8 +69,7 @@ export default {
           this.email,
           this.password
         );
-        const result = await this.$fire.auth.currentUser.getIdToken();
-        localStorage.setItem('token', result);
+        this.setToken();
       } catch (e) {
         alert(e.message);
       }
@@ -81,11 +80,23 @@ export default {
           this.emailRegister,
           this.passwordRegister
         );
+        this.setToken();
         this.panelActive = 'left-panel-active';
         alert('Registered, please login using your credential');
       } catch (e) {
         alert(e.message);
       }
+    },
+    setToken() {
+      this.$fire.auth.currentUser
+        .getIdToken(/* forceRefresh */ true)
+        .then((result) => {
+          this.$store.commit('setToken', result);
+          localStorage.setItem('token', result);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     toggleSignMode(type) {
       if (type === 'signIn') {

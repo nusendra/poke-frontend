@@ -5,6 +5,16 @@ export default function ({ store, redirect, route, $fire }) {
       $fire.auth.onAuthStateChanged((user) => {
         if (user && route.name === 'login') {
           store.commit('setAuth', user);
+
+          $fire.auth.currentUser
+            .getIdToken(/* forceRefresh */ true)
+            .then((result) => {
+              store.commit('setToken', result);
+              localStorage.setItem('token', result);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
           redirect('/');
         }
 
