@@ -93,7 +93,6 @@ export default {
   methods: {
     async getRandomPokemon() {
       const { data } = await this.$axios.$get(`/pokemon/random`);
-      console.log(data);
       this.randomPokemon = data;
     },
     async getTotalPokemon() {
