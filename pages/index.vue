@@ -21,7 +21,7 @@
             v-for="(item, index) in randomPokemon.data.stats"
             :key="'stat_' + index"
             :rotate="90"
-            :size="60"
+            :size="70"
             :width="5"
             :value="item.base_stat"
             color="primary"
@@ -30,15 +30,19 @@
             {{ item.stat.name }}
           </v-progress-circular>
         </div>
-        <v-btn
-          class=""
-          small
-          depressed
-          color="primary"
-          @click="detail(randomPokemon.data)"
-        >
-          Check the Detail
-        </v-btn>
+        <div>
+          <v-btn medium depressed color="orange" @click="getRandomPokemon">
+            Get random pokemon
+          </v-btn>
+          <v-btn
+            medium
+            depressed
+            color="primary"
+            @click="detail(randomPokemon.data)"
+          >
+            Check the Detail
+          </v-btn>
+        </div>
       </v-card-actions>
     </v-card>
     <v-data-table

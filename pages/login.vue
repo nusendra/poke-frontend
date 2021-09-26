@@ -79,7 +79,6 @@ export default {
         );
         this.setToken();
         this.panelActive = 'left-panel-active';
-        alert('Registered, please login using your credential');
       } catch (e) {
         alert(e.message);
       }
