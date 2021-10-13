@@ -23,7 +23,7 @@
     "core-js": "^3.18.2",
     "firebase": "^8",
     "nuxt": "^2.15.7",
-    "vuetify": "^2.5.9"
+    "vuetify": "^2.5.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.8",
