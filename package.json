@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "@commitlint/config-conventional": "^17.0.3",
-    "@commitlint/cli": "^17.0.2",
+    "@commitlint/cli": "^17.0.3",
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
@@ -39,11 +39,11 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.2",
+    "lint-staged": "^13.0.3",
     "eslint-plugin-vue": "^9.1.1",
     "prettier": "^2.7.1",
     "stylelint": "^14.9.1",
     "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^25.0.0"
+    "stylelint-config-standard": "^26.0.0"
   }
 }
